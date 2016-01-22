@@ -1,0 +1,11 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="hw.happyjacket.com.happylife.create_item"
+    android:background="@drawable/dollar_green" >
+
+    <include layout="@layout/green_title_layout" />
+    <include layout="@layout/item_detail_layout" />
+
+</RelativeLayout>
