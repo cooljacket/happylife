@@ -6,15 +6,16 @@ package hw.happyjacket.com.happylife;
 public class Item {
     private long id;
     private float price;
-    private String name, time;
+    private String name, time, tag;
     private int kind;
 
-    Item(long id, String name, float price, int kind, String time) {
+    Item(long id, String name, float price, int kind, String time, String tag) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.kind = kind;
         this.time = time;
+        this.tag = tag;
     }
 
     public void setId(long id) {
@@ -32,7 +33,7 @@ public class Item {
     }
 
     public String getPrice() {
-        return "" + price;
+        return String.format("%#.2f", price);
     }
 
     public String getShowName() {
@@ -57,5 +58,21 @@ public class Item {
 
     public int getKind() {
         return kind;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public boolean different(Item other) {
+        if (name != other.name)
+            return true;
+        if (price != other.price)
+            return true;
+        if (kind != other.kind)
+            return true;
+        if (tag != other.tag)
+            return true;
+        return false;
     }
 }

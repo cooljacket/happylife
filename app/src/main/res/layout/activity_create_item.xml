@@ -2,10 +2,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="hw.happyjacket.com.happylife.create_item"
+    tools:context="hw.happyjacket.com.happylife.Create_item"
     android:background="@drawable/dollar_green" >
 
     <include layout="@layout/green_title_layout" />
     <include layout="@layout/item_detail_layout" />
+
+    <Button
+        android:id="@+id/sure_to_delete"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="确认修改"
+        android:textSize="20dp"
+        android:layout_marginBottom="60dp"
+        android:background="#13BA78"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

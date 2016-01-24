@@ -30,7 +30,7 @@ public class ItemAdapter extends ArrayAdapter<Item> {
         TextView item_date = (TextView) view.findViewById(R.id.item_date);
         ImageView icon = (ImageView) view.findViewById(R.id.item_icon);
 
-        item_name.setText(item.getName());
+        item_name.setText(item.getShowName());
         item_price.setText(item.getPrice());
         item_date.setText(item.getDate());
 

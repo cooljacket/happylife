@@ -12,6 +12,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String CREATE_DB = "create table Accounts ("
             + "id integer primary key autoincrement, "
             + "name varchar(100), "
+            + "tag varchar(100), "
             + "price real, "
             + "time char(14), "
             + "kind int2)";

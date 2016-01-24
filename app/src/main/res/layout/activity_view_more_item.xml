@@ -1,0 +1,48 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="hw.happyjacket.com.happylife.ViewMoreItem">
+
+    <include layout="@layout/green_title_layout" />
+
+    <LinearLayout
+        android:id="@+id/all_years_linearlayout"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/green_title"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:text="请选择要查看的年份："
+            android:textSize="20dp"
+            android:layout_marginLeft="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Spinner
+            android:id="@+id/all_years"
+            android:layout_gravity="center"
+            android:spinnerMode="dialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/all_years_divider"
+        android:layout_below="@+id/all_years_linearlayout"
+        android:layout_marginTop="10dp"
+        android:layout_width="fill_parent"
+        android:layout_height="6dp"
+        android:background="@android:color/holo_green_light"  />
+
+    <ListView
+        android:id="@+id/item_list_more"
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/all_years_divider" />
+
+</RelativeLayout>
