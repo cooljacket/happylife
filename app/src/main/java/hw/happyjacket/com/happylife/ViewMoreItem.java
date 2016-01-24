@@ -35,7 +35,6 @@ public class ViewMoreItem extends AppCompatActivity {
         item_list.setListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(ViewMoreItem.this, String.format("pos: %d", position), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent("Update_item");
                 intent.putExtra("id", item_list.getSelectedId(position));
                 startActivityForResult(intent, SETTINGS.Item_detail_RC);
@@ -69,7 +68,6 @@ public class ViewMoreItem extends AppCompatActivity {
             case SETTINGS.Item_detail_RC:
                 if (resultCode == RESULT_OK) {
                     item_list.notifyDataSetChanged(current_year);
-                    Toast.makeText(ViewMoreItem.this, "update one", Toast.LENGTH_SHORT).show();
                 }
                 break;
             default:

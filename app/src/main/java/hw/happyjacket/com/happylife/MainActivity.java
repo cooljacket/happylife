@@ -43,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
         item_list.setListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(MainActivity.this, String.format("pos: %d", position), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent("Update_item");
                 intent.putExtra("id", item_list.getSelectedId(position));
                 startActivityForResult(intent, SETTINGS.Item_detail_RC);
@@ -64,13 +63,11 @@ public class MainActivity extends AppCompatActivity {
             case SETTINGS.New_Item_RC:
                 if (resultCode == RESULT_OK) {
                     item_list.notifyDataSetChanged(current_year);
-                    Toast.makeText(MainActivity.this, "insert one", Toast.LENGTH_SHORT).show();
                 }
                 break;
             case SETTINGS.Item_detail_RC:
                 if (resultCode == RESULT_OK) {
                     item_list.notifyDataSetChanged(current_year);
-                    Toast.makeText(MainActivity.this, "update one", Toast.LENGTH_SHORT).show();
                 }
                 break;
             default:
@@ -134,6 +131,26 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
                 dialog.show();
+            }
+        });
+
+        RelativeLayout add = (RelativeLayout) findViewById(R.id.do_add_show_items);
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Item item1 = new Item(-1, "去南站取票", 10, 0, "2016-01-24 16:00:00", "交通");
+                SETTINGS.insertOneItem(dbHelper, item1);
+                Item item2 = new Item(-1, "吃外卖", 15, 0, "2016-01-24 16:00:00", "我是吃货");
+                SETTINGS.insertOneItem(dbHelper, item2);
+                Item item3 = new Item(-1, "红包", 1000, 1, "2016-01-24 16:00:00", "红包");
+                SETTINGS.insertOneItem(dbHelper, item3);
+                Item item4 = new Item(-1, "买年货", 10, 0, "2016-01-24 16:00:00", "买买买");
+                SETTINGS.insertOneItem(dbHelper, item4);
+                Item item5 = new Item(-1, "奖学金", 1500, 1, "2016-01-24 16:00:00", "工资奖金");
+                SETTINGS.insertOneItem(dbHelper, item5);
+                item_list.notifyDataSetChanged(current_year);
+
+                Toast.makeText(MainActivity.this, "已插入5条演示数据，请回主页面查看", Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -3,7 +3,6 @@ package hw.happyjacket.com.happylife;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.widget.Toast;
 
 /**
  * Created by jacket on 2016/1/21.
@@ -27,7 +26,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_DB);
-        Toast.makeText(m_Context, "create success", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(m_Context, "create success", Toast.LENGTH_SHORT).show();
     }
 
     @Override

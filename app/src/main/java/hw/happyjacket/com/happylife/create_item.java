@@ -1,8 +1,6 @@
 package hw.happyjacket.com.happylife;
 
-import android.content.ContentValues;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -76,21 +74,6 @@ public class Create_item extends AppCompatActivity {
         });
     }
 
-    protected void register(int id) {
-
-    }
-
-    public static long insertOneItem(DatabaseHelper dbHelper, Item item) {
-        SQLiteDatabase db = dbHelper.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put("kind", item.getKind());
-        values.put("price", item.getPrice());
-        values.put("time", item.getTime());
-        values.put("name", item.getName());
-        values.put("tag", item.getTag());
-        return db.insert("Accounts", null, values);
-    }
-
     protected void setTheView(boolean isChild) {
         item_name_text = (EditText) findViewById(R.id.item_name);
         item_price_text = (EditText) findViewById(R.id.item_price);
@@ -116,7 +99,7 @@ public class Create_item extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Item item = getTheInputItem();
-                    long id = insertOneItem(dbHelper, item);
+                    long id = SETTINGS.insertOneItem(dbHelper, item);
                     item.setId(id);
 
                     // back to the main activity

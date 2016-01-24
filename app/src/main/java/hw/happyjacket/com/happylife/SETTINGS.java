@@ -1,5 +1,8 @@
 package hw.happyjacket.com.happylife;
 
+import android.content.ContentValues;
+import android.database.sqlite.SQLiteDatabase;
+
 import java.util.Calendar;
 
 /**
@@ -38,14 +41,14 @@ public class SETTINGS {
         return c.get(Calendar.YEAR);
     }
 
-   /* public static ArrayList<String> getAllTags() {
-        ArrayList<String> ans = new ArrayList<>();
-        for (int i = 0; i < tags_out.length; ++i)
-            ans.add(tags_out[i]);
-
-        for (int i = 0; i < tags_in.length; ++i)
-            ans.add(tags_in[i]);
-
-        return ans;
-    }*/
+    public static long insertOneItem(DatabaseHelper dbHelper, Item item) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("kind", item.getKind());
+        values.put("price", item.getPrice());
+        values.put("time", item.getTime());
+        values.put("name", item.getName());
+        values.put("tag", item.getTag());
+        return db.insert("Accounts", null, values);
+    }
 }
