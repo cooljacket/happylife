@@ -3,12 +3,15 @@ package hw.happyjacket.com.happylife;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -83,9 +86,39 @@ public class Item_List_View {
     public void exportItems() {
         String fileName = m_context.getExternalFilesDir(null) + File.separator + "HappyLife账目表.txt";
         String text = "id\tkind\tprice\ttime\tname\ttag\t\n";
-        MainActivity.save(m_context, fileName, text);
 
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        FileWriter fw;
+        try {
+            fw = new FileWriter(fileName, false);
+            fw.write(text, 0, text.length());
+
+            SQLiteDatabase db = dbHelper.getReadableDatabase();
+            Cursor cursor = db.rawQuery(String.format("select * from Accounts"), null);
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                long id = cursor.getLong(cursor.getColumnIndex("id"));
+                int kind = cursor.getInt(cursor.getColumnIndex("kind"));
+                float price = cursor.getFloat(cursor.getColumnIndex("price"));
+                String time = cursor.getString(cursor.getColumnIndex("time"));
+                String name = cursor.getString(cursor.getColumnIndex("name"));
+                String tag = cursor.getString(cursor.getColumnIndex("tag"));
+
+                text = String.format("%d\t%d\t%#.2f\t%s\t%s\t%s\n", id, kind, price, time, name, tag);
+                fw.write(text, 0, text.length());
+
+                cursor.moveToNext();
+            }
+            cursor.close();
+
+            fw.close();
+            Toast.makeText(m_context, "导出文件路径为：" + fileName, Toast.LENGTH_LONG).show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d("ExternalStorage", "Error writing " + fileName);
+            Toast.makeText(m_context, "Failed to open file " + fileName, Toast.LENGTH_SHORT).show();
+        }
+
+       /* SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor cursor = db.rawQuery(String.format("select * from Accounts"), null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
@@ -97,13 +130,11 @@ public class Item_List_View {
             String tag = cursor.getString(cursor.getColumnIndex("tag"));
 
             text = String.format("%d\t%d\t%#.2f\t%s\t%s\t%s\n", id, kind, price, time, name, tag);
-            MainActivity.save(m_context, fileName, text);
+
 
             cursor.moveToNext();
         }
-        cursor.close();
-
-        Toast.makeText(m_context, "导出文件路径为：" + fileName, Toast.LENGTH_LONG).show();
+        cursor.close();*/
 
     }
 }
