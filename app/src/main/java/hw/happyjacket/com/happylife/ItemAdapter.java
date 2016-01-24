@@ -24,7 +24,12 @@ public class ItemAdapter extends ArrayAdapter<Item> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         Item item = getItem(position);
-        View view = LayoutInflater.from(getContext()).inflate(resourceId, null);
+        View view = null;
+        if (convertView == null) {
+            view = LayoutInflater.from(getContext()).inflate(resourceId, null);
+        } else {
+            view = convertView;
+        }
         TextView item_name = (TextView) view.findViewById(R.id.item_name_text);
         TextView item_price = (TextView) view.findViewById(R.id.item_price_text);
         TextView item_date = (TextView) view.findViewById(R.id.item_date);

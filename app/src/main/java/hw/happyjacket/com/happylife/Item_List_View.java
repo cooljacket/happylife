@@ -6,7 +6,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,9 +63,47 @@ public class Item_List_View {
             String name = cursor.getString(cursor.getColumnIndex("name"));
             String tag = cursor.getString(cursor.getColumnIndex("tag"));
             m_data.add(new Item(id, name, price, kind, time, tag));
-            Item item = new Item(id, name, price, kind, time, tag);
             cursor.moveToNext();
         }
         cursor.close();
+    }
+
+    public float getTotalCost(int kind) {
+        float ans = 0;
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery(String.format("select sum(price) from Accounts where kind=%d", kind), null);
+        cursor.moveToFirst();
+        if (!cursor.isAfterLast()) {
+            ans = cursor.getFloat(cursor.getColumnIndex("sum(price)"));
+        }
+        cursor.close();
+        return ans;
+    }
+
+    public void exportItems() {
+        String fileName = m_context.getExternalFilesDir(null) + File.separator + "HappyLife账目表.txt";
+        String text = "id\tkind\tprice\ttime\tname\ttag\t\n";
+        MainActivity.save(m_context, fileName, text);
+
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery(String.format("select * from Accounts"), null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            long id = cursor.getLong(cursor.getColumnIndex("id"));
+            int kind = cursor.getInt(cursor.getColumnIndex("kind"));
+            float price = cursor.getFloat(cursor.getColumnIndex("price"));
+            String time = cursor.getString(cursor.getColumnIndex("time"));
+            String name = cursor.getString(cursor.getColumnIndex("name"));
+            String tag = cursor.getString(cursor.getColumnIndex("tag"));
+
+            text = String.format("%d\t%d\t%#.2f\t%s\t%s\t%s\n", id, kind, price, time, name, tag);
+            MainActivity.save(m_context, fileName, text);
+
+            cursor.moveToNext();
+        }
+        cursor.close();
+
+        Toast.makeText(m_context, "导出文件路径为：" + fileName, Toast.LENGTH_LONG).show();
+
     }
 }

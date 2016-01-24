@@ -12,6 +12,16 @@ public class SETTINGS {
     public static String Item_db_file_name = "Accounts.db", Item_db_table_name = "Accounts";
     public static int Lowest_year = 2012;
 
+    public static String aboutMe =
+            "作者：陈榕涛\n"
+            + "完成日期：2016-01-24\n\n"
+            + "功能简介：\n这个app是用来记账的，有基础的统计功能，可以新建、修改、删除账目，支持导出数据到本地，支持余额查看。\n\n"
+            + "使用说明简介：\n"
+            + "1）新建：右下角的新建按钮；\n"
+            + "2）修改：点击列表中相应的行即可，删除也是点击这里进入的；\n"
+            + "3）统计：右上角的统计按钮。\n\n"
+            + "后续版本：可能会推出网页版，支持同步到服务器，不怕数据丢失；可能会支持自定义标签。";
+
     public static int getTagIndex(int kind, String name) {
         String tag[] = tags_out;
         if (kind == 1)

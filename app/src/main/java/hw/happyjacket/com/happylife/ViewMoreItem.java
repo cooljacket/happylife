@@ -103,28 +103,30 @@ public class ViewMoreItem extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String msg = "收入——\n";
-                boolean have = false;
+                float in = 0, out = 0;
 
                 for (int i = 0; i < SETTINGS.tags_in.length; ++i) {
                     float price = getTagCost(current_year, SETTINGS.tags_in[i]);
                     if (price > 0) {
-                        have |= true;
+                        in += price;
                         msg += SETTINGS.tags_in[i] + "：" + price + "\n";
                     }
                 }
 
-                msg += "\n\n支出——\n";
+                msg += String.format("收入总计：%#.2f元\n\n支出——\n", in);
                 for (int i = 0; i < SETTINGS.tags_out.length; ++i) {
                     float price = getTagCost(current_year, SETTINGS.tags_out[i]);
                     if (price > 0) {
-                        have |= true;
+                        out += price;
                         msg += SETTINGS.tags_out[i] + "：" + price + "\n";
                     }
                 }
 
+                msg += String.format("支出总计：%#.2f元", out);
+
                 AlertDialog.Builder dialog = new AlertDialog.Builder(ViewMoreItem.this);
                 dialog.setTitle(String.format("%d年度的开支情况如下：", current_year));
-                if (have)
+                if (in > 0 || out > 0)
                     dialog.setMessage(msg);
                 else
                     dialog.setMessage("暂时木有记录");
