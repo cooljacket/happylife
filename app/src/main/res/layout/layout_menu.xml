@@ -11,6 +11,7 @@
         android:orientation="vertical" >
 
         <RelativeLayout
+            android:visibility="gone"
             android:id="@+id/do_add_show_items"
             android:clickable="true"
             android:layout_width="match_parent"
